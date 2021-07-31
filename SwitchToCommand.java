@@ -11,16 +11,19 @@ public class SwitchToCommand {
 		System.setProperty("webdriver.gecko.driver", "C://Users//dell//Downloads//geckodriver.exe");
 		WebDriver driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://toolsqa.wpengine.com/automation-practice-switch-windows/");
-        String handle= driver.getWindowHandle();
-        System.out.println(handle);
-        driver.findElement(By.xpath("//button[text()='New Message Window']")).click();
-        Set<String> handles = driver.getWindowHandles();
-        System.out.println(handles);
-        for (String handle1 : driver.getWindowHandles()) {
-        	System.out.println(handle1);
-        	driver.switchTo().window(handle1);
-      	}
+        driver.get("https://demoqa.com/browser-windows");
+	String handle = driver.getWindowHandle();
+	System.out.println(handle);
+	driver.findElement(By.xpath("//button[normalize-space()='New Window']")).click();
+	Set<String> handles = driver.getWindowHandles();
+	System.out.println(handles);
+	for (String handle1 : driver.getWindowHandles()) {
+		if(!(handle1.equalsIgnoreCase(handle))) {
+			driver.switchTo().window(handle1);	
+			System.out.println(driver.findElement(By.id("sampleHeading")).getText());
+		}
+
+	}
        // driver.close();
         driver.quit();
 	}
